@@ -8,16 +8,6 @@ echo "Starting first run"
 
 php -r "file_exist('.env') || copy('.env.example', '.env')"
 
-#run migrations
-
-php artisan migrate
-
-#SDE
-php artisan eve:update:sde -n
-
-#Seed Scheduler
-php artisan db:seed --class=Seat\\Console\\database\\seeds\\ScheduleSeeder
-
 #Install defined plugins
 #need to be passed to the container as env variables
 echo "installing / updating plugins"
@@ -33,8 +23,6 @@ if [ ! "$plugins" == "" ]; then
   composer update ${plugins} --no-scripts --no-dev --no-ansi --no-progress
 
   php artisan vendor:publish --force --all
-
-  php artisan migrate
 
 fi
 
